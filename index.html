@@ -1,46 +1,28 @@
 <!DOCTYPE html>
-<html lang=pt-br'>
+<html lang="pt-br">
 <head>
-    <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <title>LIsta</title>
-    <link rel='stylesheet' href='main.css'>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lista de Animes</title>
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
 
     <header>
-        <h1>Animes</h1>
+        <h1>Lista de Animes</h1>
 
-        <dl>
-            <dt>Ação</dt>
-            <dt>Aventura</dt>
-            <dt>Romance</dt>
-            <dt>Comédia</dt>
-        </dl>
-        
+        <div>
+            <label for="titulo">Qual anime você procura?</label>
+            <input type="text" id="titulo" placeholder="Ex: Naruto">
+        </div>
+    
+            <button class="btn" onclick="listarAnimes()">Pesquisar</button>
+
     </header>
-    
-    <div>
-        <label for="titulo">Qual anime você procura?</label>
-        <input type="text">
-    </div>
 
-    <div class="informações">
-        <div>
-            <label for="ep">Episodios</label>
-            <input type="ep">
-        </div>
-        <div>
-            <label for="generos"></label>
-            <input type="generos">
-        </div>
-
-        <button class="btn" onclick="">Pesquisar</button>
-    
-    </div>
-
-
-</body>
+    <!-- Lista onde os resultados aparecem -->
+    <ol id="lista-animes">Carregando...</ol>
 
     <script src="API.js"></script>
+</body>
 </html>
