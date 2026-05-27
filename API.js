@@ -18,16 +18,15 @@ const mostrarAnimes = (animes) =>
         const li = document.createElement('li'); //cria a lista 
         li.className = 'anime-item'; //A classe para estilizar
 
-        li.textContent = anime.title; //adiciona o titulo do anime
         const img = document.createElement("img"); //imagem do anime
-        img.src = anime.images;
+        img.src = anime.images?.jpg?.image_url || '';
         img.style.width = "150px"; 
 
         const NomeAnime = document.createElement("h3"); //titulo do anime
         NomeAnime.textContent = anime.title; 
 
         const ranking = document.createElement("p"); //ranking do anime
-        ranking.textContent = `Ranking: ${anime.rank}`;
+        ranking.textContent = `Ranking: ${anime.rank || 'Dessconecido'}`;
 
         const sinopse = document.createElement("p"); //sinopse do anime
         sinopse.textContent = anime.synopsis ? anime.synopsis.substring(0, 200) + '...' : 'Sem sinopse';
@@ -35,21 +34,26 @@ const mostrarAnimes = (animes) =>
         const episodios = document.createElement("p"); //episodios do anime
         episodios.textContent = `Episódios: ${anime.episodes || 'Desconecido'}`;
 
-        li.appendChild(img, NomeAnime, ranking, sinopse, episodios); //adiciona os elementos à lista
+        //coloca os elementos dentro da li
+        li.append(img, NomeAnime, ranking, sinopse, episodios);
 
         // Coloca a li dentro da lista e envia para o HTML
-        lista.appendChild(li); 
+        lista.appendChild(li);  
     });
 }
 
 //validar nome do anime
 const validarNome = (titulo) => 
 {
-    if (!titulo)
+    const mensagemErro = document.getElementById('mensagem-erro');
+
+    // .trim() remove espaços inúteis do início e fim
+    if (!titulo || titulo.trim() === '')
     {
-        alert('Por favor, digite o nome de um anime.');
+        mensagemErro.textContent = 'Por favor, insira um nome de anime válido.';
         return false;
     }
+    mensagemErro.textContent = '';
     return true;
 };
 
@@ -58,7 +62,7 @@ const validarNome = (titulo) =>
 const pesquisarAnime = async (titulo) => 
 {
     limparTela();
-    const BASE_URL = 'https://api.jikan.moe/v4/anime/json/';
+    const BASE_URL = 'https://api.jikan.moe/v4/anime/?q=';
     
     if (validarNome(titulo))
     {
